@@ -47,4 +47,10 @@ public class MovieServiceImpl implements MovieServiceInterface {
     public List<DirectorEntity> getAllDirectors() {
         return directorRepository.findAll();
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public DirectorEntity getDirectorById(String id) {
+        return directorRepository.findById(id).orElse(null);
+    }
 }

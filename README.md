@@ -1,24 +1,19 @@
-## Graphqlql Spring Boot demo
-
-Working queriers
-
-```json
 query getAllMovies {
-  movies {
-  id
-  title
-  rating
-  yearReleased
-  description
-  actors {
-  id
-  name
-  age
+movies {
+id
+title
+rating
+yearReleased
+description
+actors {
+id
+name
+age
 }
 directors {
-  id
-  name
-  age
+id
+name
+age
 }
 }
 }
@@ -39,6 +34,9 @@ id
 name
 age
 country
+movies {
+title
+}
 }
 }
 
@@ -55,142 +53,17 @@ directors {
 id
 name
 age
-country
+movies {
+title
 }
 }
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
+
+query getDirectorById {
+directorById(id: "david-fincher") {
+id
+name
+age
+}
+}
 

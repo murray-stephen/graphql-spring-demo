@@ -5,13 +5,10 @@ import com.graphqldemo.movies.domain.DirectorEntity;
 import com.graphqldemo.movies.domain.MovieEntity;
 import com.graphqldemo.movies.domain.MovieServiceInterface;
 import com.netflix.graphql.dgs.DgsComponent;
-import com.netflix.graphql.dgs.DgsMutation;
 import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.InputArgument;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @DgsComponent
 public class MovieDataResolver {
@@ -45,6 +42,11 @@ public class MovieDataResolver {
     @DgsQuery
     public List<DirectorEntity> directors() {
         return movieService.getAllDirectors();
+    }
+
+    @DgsQuery
+    public DirectorEntity directorById(@InputArgument String id) {
+        return movieService.getDirectorById(id);
     }
 
 //    @DgsMutation

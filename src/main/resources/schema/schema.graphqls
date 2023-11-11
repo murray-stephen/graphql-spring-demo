@@ -4,6 +4,7 @@ type Query {
     actors: [Actor]
     actorById(id: String): Actor
     directors: [Director]
+    directorById(id: String): Director
 }
 
 type Mutation {

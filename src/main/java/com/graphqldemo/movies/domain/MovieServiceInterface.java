@@ -8,4 +8,5 @@ public interface MovieServiceInterface {
     List<ActorEntity> getAllActors();
     ActorEntity getActorById(String id);
     List<DirectorEntity> getAllDirectors();
+    DirectorEntity getDirectorById(String id);
 }
