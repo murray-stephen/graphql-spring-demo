@@ -9,13 +9,9 @@ import java.util.List;
 public class MovieServiceImpl implements MovieServiceInterface {
 
     private final MovieRepository movieRepository;
-    private final ActorRepository actorRepository;
-    private final DirectorRepository directorRepository;
 
-    public MovieServiceImpl(MovieRepository movieRepository, ActorRepository actorRepository, DirectorRepository directorRepository) {
+    public MovieServiceImpl(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
-        this.actorRepository = actorRepository;
-        this.directorRepository = directorRepository;
     }
 
     @Override
@@ -28,29 +24,5 @@ public class MovieServiceImpl implements MovieServiceInterface {
     @Transactional(readOnly = true)
     public MovieEntity getMovieById(String id) {
         return movieRepository.findById(id).orElse(null);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<ActorEntity> getAllActors() {
-        return actorRepository.findAll();
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public ActorEntity getActorById(String id) {
-        return actorRepository.findById(id).orElse(null);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<DirectorEntity> getAllDirectors() {
-        return directorRepository.findAll();
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public DirectorEntity getDirectorById(String id) {
-        return directorRepository.findById(id).orElse(null);
     }
 }

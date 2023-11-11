@@ -1,7 +1,9 @@
 package com.graphqldemo.movies.graphql;
 
 import com.graphqldemo.movies.domain.ActorEntity;
+import com.graphqldemo.movies.domain.ActorServiceInterface;
 import com.graphqldemo.movies.domain.DirectorEntity;
+import com.graphqldemo.movies.domain.DirectorServiceInterface;
 import com.graphqldemo.movies.domain.MovieEntity;
 import com.graphqldemo.movies.domain.MovieServiceInterface;
 import com.netflix.graphql.dgs.DgsComponent;
@@ -12,11 +14,14 @@ import java.util.List;
 
 @DgsComponent
 public class MovieDataResolver {
-
     private final MovieServiceInterface movieService;
+    private final ActorServiceInterface actorService;
+    private final DirectorServiceInterface directorService;
 
-    public MovieDataResolver(MovieServiceInterface movieService) {
+    public MovieDataResolver(MovieServiceInterface movieService, ActorServiceInterface actorService, DirectorServiceInterface directorService) {
         this.movieService = movieService;
+        this.actorService = actorService;
+        this.directorService = directorService;
     }
 
     @DgsQuery
@@ -31,22 +36,22 @@ public class MovieDataResolver {
 
     @DgsQuery
     public List<ActorEntity> actors() {
-        return movieService.getAllActors();
+        return actorService.getAllActors();
     }
 
     @DgsQuery
     public ActorEntity actorById(@InputArgument String id) {
-        return movieService.getActorById(id);
+        return actorService.getActorById(id);
     }
 
     @DgsQuery
     public List<DirectorEntity> directors() {
-        return movieService.getAllDirectors();
+        return directorService.getAllDirectors();
     }
 
     @DgsQuery
     public DirectorEntity directorById(@InputArgument String id) {
-        return movieService.getDirectorById(id);
+        return directorService.getDirectorById(id);
     }
 
 //    @DgsMutation
