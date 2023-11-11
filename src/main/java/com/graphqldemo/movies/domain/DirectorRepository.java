@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DirectorRepository extends JpaRepository<MovieEntity, String> {
+public interface DirectorRepository extends JpaRepository<DirectorEntity, String> {
     // Here you can define custom query methods if needed, for example:
     // List<Movie> findByTitleContaining(String title);
 }

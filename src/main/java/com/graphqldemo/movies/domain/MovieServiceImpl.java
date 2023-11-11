@@ -30,23 +30,21 @@ public class MovieServiceImpl implements MovieServiceInterface {
         return movieRepository.findById(id).orElse(null);
     }
 
-//    @Override
-//    @Transactional(readOnly = true)
-//    public List<ActorEntity> getActorsByMovieId(String movieId) {
-//        // This would typically involve a custom query method in your repository to find actors by movie ID
-////        return actorRepository.findActorsByMovieId(movieId);
-//    }
+    @Override
+    @Transactional(readOnly = true)
+    public List<ActorEntity> getAllActors() {
+        return actorRepository.findAll();
+    }
 
-//    @Override
-//    @Transactional(readOnly = true)
-//    public List<DirectorEntity> getDirectorsByMovieId(String movieId) {
-//        // Similarly, this would involve a custom query method to find directors by movie ID
-////        return directorRepository.findDirectorsByMovieId(movieId);
-//    }
+    @Override
+    @Transactional(readOnly = true)
+    public ActorEntity getActorById(String id) {
+        return actorRepository.findById(id).orElse(null);
+    }
 
-//    @Override
-//    public MovieEntity addMovie(String title, Double rating, String yearReleased, String description) {
-//        MovieEntity movie = new MovieEntity(title, rating, yearReleased, description);
-//        return movieRepository.save(movie);
-//    }
+    @Override
+    @Transactional(readOnly = true)
+    public List<DirectorEntity> getAllDirectors() {
+        return directorRepository.findAll();
+    }
 }

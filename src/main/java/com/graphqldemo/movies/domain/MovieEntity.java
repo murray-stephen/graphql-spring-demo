@@ -1,14 +1,12 @@
 package com.graphqldemo.movies.domain;
 
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,16 +15,6 @@ import java.util.Set;
 public class MovieEntity {
 
     public MovieEntity() {
-    }
-
-    public MovieEntity(String id, String title, Double rating, String yearReleased, String description, Set<ActorEntity> actors, Set<DirectorEntity> directors) {
-        this.id = id;
-        this.title = title;
-        this.rating = rating;
-        this.yearReleased = yearReleased;
-        this.description = description;
-        this.actors = actors;
-        this.directors = directors;
     }
 
     @Id
