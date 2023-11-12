@@ -52,6 +52,7 @@ input DirectorInput {
 }
 
 input MovieInput {
+    id: String!
     title: String!
     rating: Float!
     yearReleased: String!

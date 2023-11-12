@@ -7,17 +7,19 @@ import com.graphqldemo.movies.domain.DirectorServiceInterface;
 import com.graphqldemo.movies.domain.MovieEntity;
 import com.graphqldemo.movies.domain.MovieServiceInterface;
 import com.netflix.graphql.dgs.DgsComponent;
+import com.netflix.graphql.dgs.DgsMutation;
 import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.InputArgument;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @DgsComponent
 public class MovieDataResolver {
     private final MovieServiceInterface movieService;
     private final ActorServiceInterface actorService;
     private final DirectorServiceInterface directorService;
-
     public MovieDataResolver(MovieServiceInterface movieService, ActorServiceInterface actorService, DirectorServiceInterface directorService) {
         this.movieService = movieService;
         this.actorService = actorService;
@@ -54,28 +56,37 @@ public class MovieDataResolver {
         return directorService.getDirectorById(id);
     }
 
-//    @DgsMutation
-//    public MovieEntity addMovie(@InputArgument("movieInput") MovieInput movieInput) {
-//        // Create and save the new movie entity
-//        MovieEntity movieEntity = new MovieEntity();
-//        movieEntity.setTitle(movieInput.getTitle());
-//        movieEntity.setRating(movieInput.getRating());
-//        movieEntity.setYearReleased(movieInput.getYearReleased());
-//        movieEntity.setDescription(movieInput.getDescription());
-//
-//        // Process and save actors
-//        Set<ActorEntity> actorEntities = movieInput.getActors().stream()
-//                .map(actorInput -> actorService.createOrGetActor(actorInput))
-//                .collect(Collectors.toSet());
-//        movieEntity.setActors(actorEntities);
-//
-//        // Process and save directors
-//        Set<DirectorEntity> directorEntities = movieInput.getDirectors().stream()
-//                .map(directorInput -> directorService.createOrGetDirector(directorInput))
-//                .collect(Collectors.toSet());
-//        movieEntity.setDirectors(directorEntities);
-//
-//        return movieService.saveMovie(movieEntity);
-//    }
+    // Add a new movie actor and director as part of single mutation
+    @DgsMutation
+    public MovieEntity addMovie(@InputArgument("movieInput") MovieInput movieInput) {
+        // Create and save the new movie entity
+
+        System.out.println("****************");
+        System.out.println("****************");
+        System.out.println("****************");
+        System.out.println("****************");
+        System.out.println(movieInput);
+
+        MovieEntity movieEntity = new MovieEntity();
+        movieEntity.setId(movieInput.getId());
+        movieEntity.setTitle(movieInput.getTitle());
+        movieEntity.setRating(movieInput.getRating());
+        movieEntity.setYearReleased(movieInput.getYearReleased());
+        movieEntity.setDescription(movieInput.getDescription());
+
+        // Process and save actors
+        Set<ActorEntity> actorEntities = movieInput.getActors().stream()
+                .map(actorInput -> actorService.createOrGetActor(actorInput))
+                .collect(Collectors.toSet());
+        movieEntity.setActors(actorEntities);
+
+        // Process and save directors
+        Set<DirectorEntity> directorEntities = movieInput.getDirectors().stream()
+                .map(directorInput -> directorService.createOrGetDirector(directorInput))
+                .collect(Collectors.toSet());
+        movieEntity.setDirectors(directorEntities);
+
+        return movieService.saveMovie(movieEntity);
+    }
 }
 

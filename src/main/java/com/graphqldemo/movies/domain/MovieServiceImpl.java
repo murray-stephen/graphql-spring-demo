@@ -25,4 +25,11 @@ public class MovieServiceImpl implements MovieServiceInterface {
     public MovieEntity getMovieById(String id) {
         return movieRepository.findById(id).orElse(null);
     }
+
+    @Override
+    @Transactional
+    public MovieEntity saveMovie(MovieEntity movie) {
+        // Save the movie entity to the database
+        return movieRepository.save(movie);
+    }
 }

@@ -3,6 +3,7 @@ package com.graphqldemo.movies.graphql;
 import java.util.List;
 
 public class MovieInput {
+    private String id;
     private String title;
     private Double rating;
     private String yearReleased;
@@ -10,13 +11,23 @@ public class MovieInput {
     private List<ActorInput> actors;
     private List<DirectorInput> directors;
 
-    public MovieInput(String title, Double rating, String yearReleased, String description, List<ActorInput> actors, List<DirectorInput> directors) {
+    public MovieInput(){}
+
+    public MovieInput(String id, String title, Double rating, String yearReleased, String description, List<ActorInput> actors, List<DirectorInput> directors) {
+        this.id = id;
         this.title = title;
         this.rating = rating;
         this.yearReleased = yearReleased;
         this.description = description;
         this.actors = actors;
         this.directors = directors;
+    }
+
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {

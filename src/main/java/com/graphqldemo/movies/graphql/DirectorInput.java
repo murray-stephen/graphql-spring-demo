@@ -6,6 +6,7 @@ public class DirectorInput {
     private String age;
     private String country;
 
+    public DirectorInput() {}
     public DirectorInput(String id, String name, String age, String country) {
         this.id = id;
         this.name = name;

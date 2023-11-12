@@ -6,6 +6,8 @@ public class ActorInput {
     private String age;
     private String country;
 
+    public ActorInput() {}
+
     public ActorInput(String id, String name, String age, String country) {
         this.id = id;
         this.name = name;
