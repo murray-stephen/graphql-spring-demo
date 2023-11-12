@@ -1,4 +1,8 @@
+# graphql-spring-demo
 
+### A demo GraphQL project that queries data in a H2 database
+#### Playground: http://localhost:8080/graphiql
+#### H2 database (JDBC URL: jdbc:h2:mem:testdb, username: sa, password: password): http://localhost:8080/h2-console.
 
 ```javascript
 query getAllMovies {

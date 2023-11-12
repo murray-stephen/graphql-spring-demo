@@ -31,15 +31,5 @@ public class MovieMapper {
                     return director;
                 }).collect(Collectors.toList()));
         return movie;
-
-//        Movie movie = new Movie();
-//        movie.setId(movieEntity.getId());
-//        movie.setTitle(movieEntity.getTitle());
-//        movie.setRating(movieEntity.getRating());
-//        movie.setYearReleased(movieEntity.getYearReleased());
-//        movie.setDescription(movieEntity.getDescription());
-//        movie.setActors(movieEntity.getActors().stream().map(ActorMapper::mapToActorData).collect(Collectors.toList()));
-//        movie.setDirectors(movieEntity.getDirectors().stream().map(DirectorMapper::mapToDirectorData).collect(Collectors.toList()));
-//        return movie;
     }
 }
