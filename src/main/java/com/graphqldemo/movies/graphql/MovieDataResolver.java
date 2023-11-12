@@ -1,9 +1,12 @@
 package com.graphqldemo.movies.graphql;
 
+import com.graphqldemo.movies.domain.Actor;
 import com.graphqldemo.movies.domain.ActorEntity;
 import com.graphqldemo.movies.domain.ActorServiceInterface;
+import com.graphqldemo.movies.domain.Director;
 import com.graphqldemo.movies.domain.DirectorEntity;
 import com.graphqldemo.movies.domain.DirectorServiceInterface;
+import com.graphqldemo.movies.domain.Movie;
 import com.graphqldemo.movies.domain.MovieEntity;
 import com.graphqldemo.movies.domain.MovieServiceInterface;
 import com.netflix.graphql.dgs.DgsComponent;
@@ -27,46 +30,39 @@ public class MovieDataResolver {
     }
 
     @DgsQuery
-    public List<MovieEntity> movies() {
+    public List<Movie> movies() {
         return movieService.getAllMovies();
     }
 
     @DgsQuery
-    public MovieEntity movieById(@InputArgument String id) {
+    public Movie movieById(@InputArgument String id) {
         return movieService.getMovieById(id);
     }
 
     @DgsQuery
-    public List<ActorEntity> actors() {
+    public List<Actor> actors() {
         return actorService.getAllActors();
     }
 
     @DgsQuery
-    public ActorEntity actorById(@InputArgument String id) {
+    public Actor actorById(@InputArgument String id) {
         return actorService.getActorById(id);
     }
 
     @DgsQuery
-    public List<DirectorEntity> directors() {
+    public List<Director> directors() {
         return directorService.getAllDirectors();
     }
 
     @DgsQuery
-    public DirectorEntity directorById(@InputArgument String id) {
+    public Director directorById(@InputArgument String id) {
         return directorService.getDirectorById(id);
     }
 
     // Add a new movie actor and director as part of single mutation
     @DgsMutation
-    public MovieEntity addMovie(@InputArgument("movieInput") MovieInput movieInput) {
+    public Movie addMovie(@InputArgument("movieInput") MovieInput movieInput) {
         // Create and save the new movie entity
-
-        System.out.println("****************");
-        System.out.println("****************");
-        System.out.println("****************");
-        System.out.println("****************");
-        System.out.println(movieInput);
-
         MovieEntity movieEntity = new MovieEntity();
         movieEntity.setId(movieInput.getId());
         movieEntity.setTitle(movieInput.getTitle());
@@ -76,13 +72,13 @@ public class MovieDataResolver {
 
         // Process and save actors
         Set<ActorEntity> actorEntities = movieInput.getActors().stream()
-                .map(actorInput -> actorService.createOrGetActor(actorInput))
+                .map(actorService::createOrGetActor)
                 .collect(Collectors.toSet());
         movieEntity.setActors(actorEntities);
 
         // Process and save directors
         Set<DirectorEntity> directorEntities = movieInput.getDirectors().stream()
-                .map(directorInput -> directorService.createOrGetDirector(directorInput))
+                .map(directorService::createOrGetDirector)
                 .collect(Collectors.toSet());
         movieEntity.setDirectors(directorEntities);
 

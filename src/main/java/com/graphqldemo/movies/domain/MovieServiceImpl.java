@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MovieServiceImpl implements MovieServiceInterface {
@@ -16,20 +17,23 @@ public class MovieServiceImpl implements MovieServiceInterface {
 
     @Override
     @Transactional(readOnly = true)
-    public List<MovieEntity> getAllMovies() {
-        return movieRepository.findAll();
+    public List<Movie> getAllMovies() {
+        List<MovieEntity> movieEntities = movieRepository.findAll();
+        return movieEntities.stream().map(MovieMapper::mapToMovieData).collect(Collectors.toList());
     }
 
     @Override
     @Transactional(readOnly = true)
-    public MovieEntity getMovieById(String id) {
-        return movieRepository.findById(id).orElse(null);
+    public Movie getMovieById(String id) {
+        MovieEntity movieEntity = movieRepository.findById(id).orElse(null);
+        return MovieMapper.mapToMovieData(movieEntity);
     }
 
     @Override
     @Transactional
-    public MovieEntity saveMovie(MovieEntity movie) {
+    public Movie saveMovie(MovieEntity movie) {
         // Save the movie entity to the database
-        return movieRepository.save(movie);
+        MovieEntity movieEntity = movieRepository.save(movie);
+        return MovieMapper.mapToMovieData(movieEntity);
     }
 }

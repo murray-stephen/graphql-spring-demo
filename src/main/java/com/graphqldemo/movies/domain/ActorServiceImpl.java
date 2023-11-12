@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ActorServiceImpl implements ActorServiceInterface {
@@ -17,14 +18,16 @@ public class ActorServiceImpl implements ActorServiceInterface {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ActorEntity> getAllActors() {
-        return actorRepository.findAll();
+    public List<Actor> getAllActors() {
+        List<ActorEntity> actorEntities = actorRepository.findAll();
+        return actorEntities.stream().map(ActorMapper::mapToActorData).collect(Collectors.toList());
     }
 
     @Override
     @Transactional(readOnly = true)
-    public ActorEntity getActorById(String id) {
-        return actorRepository.findById(id).orElse(null);
+    public Actor getActorById(String id) {
+        ActorEntity actorEntity = actorRepository.findById(id).orElse(null);
+        return ActorMapper.mapToActorData(actorEntity);
     }
 
     @Override

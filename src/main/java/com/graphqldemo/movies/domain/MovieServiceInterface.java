@@ -3,7 +3,7 @@ package com.graphqldemo.movies.domain;
 import java.util.List;
 
 public interface MovieServiceInterface {
-    List<MovieEntity> getAllMovies();
-    MovieEntity getMovieById(String id);
-    MovieEntity saveMovie(MovieEntity movie);
+    List<Movie> getAllMovies();
+    Movie getMovieById(String id);
+    Movie saveMovie(MovieEntity movie);
 }

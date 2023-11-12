@@ -1,12 +1,12 @@
 package com.graphqldemo.movies.domain;
 
-import com.graphqldemo.movies.graphql.ActorInput;
 import com.graphqldemo.movies.graphql.DirectorInput;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class DirectorServiceImpl implements DirectorServiceInterface {
@@ -18,14 +18,16 @@ public class DirectorServiceImpl implements DirectorServiceInterface {
 
     @Override
     @Transactional(readOnly = true)
-    public List<DirectorEntity> getAllDirectors() {
-        return directorRepository.findAll();
+    public List<Director> getAllDirectors() {
+        List<DirectorEntity> directorEntities = directorRepository.findAll();
+        return directorEntities.stream().map(DirectorMapper::mapToDirectorData).collect(Collectors.toList());
     }
 
     @Override
     @Transactional(readOnly = true)
-    public DirectorEntity getDirectorById(String id) {
-        return directorRepository.findById(id).orElse(null);
+    public Director getDirectorById(String id) {
+        DirectorEntity directorEntity = directorRepository.findById(id).orElse(null);
+        return DirectorMapper.mapToDirectorData(directorEntity);
     }
 
     @Override

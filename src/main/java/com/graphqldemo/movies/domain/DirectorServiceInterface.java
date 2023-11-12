@@ -5,7 +5,8 @@ import com.graphqldemo.movies.graphql.DirectorInput;
 import java.util.List;
 
 public interface DirectorServiceInterface {
-    List<DirectorEntity> getAllDirectors();
-    DirectorEntity getDirectorById(String id);
+    List<Director> getAllDirectors();
+    Director
+    getDirectorById(String id);
     DirectorEntity createOrGetDirector(DirectorInput actorInput);
 }
